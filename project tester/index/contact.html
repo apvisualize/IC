@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TECHNOVA</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../style/contact.css">
+</head>
+<body>
+
+    <header>
+        <a href="home.html" class="logo"><i class='bx bx-analyse'></i> <span>TECHNOVA</span></a>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="event.html">Event</a></li>
+            <li><a href="members.html">Members</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <div class="header-actions">
+            <i class='bx bx-search' style="font-size: 1.5rem; cursor: pointer;"></i>
+            <a href="#" class="btn-login">Explore Now</a>
+            <i class='bx bx-menu-alt-right' id="menu-icon"></i>
+        </div>
+    </header>
+
+    <div class="mobile-nav" id="mobile-nav">
+        <i class='bx bx-x' id="close-icon"></i>
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="event.html">Event</a>
+        <a href="members.html">Members</a>
+        <a href="contact.html" class="active">Contact</a>
+    </div>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info animate-reveal-left">
+                    <h1>Get In <span>Touch</span></h1>
+                    <p>Punya pertanyaan tentang layanan kami? Tim ahli kami siap membantu transformasi digital Anda.</p>
+                    
+                    <div class="info-items">
+                        <div class="item">
+                            <i class='bx bx-map'></i>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Sudirman Central Business District, Jakarta</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class='bx bx-envelope'></i>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p>support@technova.id</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class='bx bx-phone'></i>
+                            <div>
+                                <h4>Call Us</h4>
+                                <p>+62 21 555 0123</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                        <a href="#"><i class='bx bxl-linkedin'></i></a>
+                    </div>
+                </div>
+
+                <form class="contact-form animate-reveal-up" id="contactForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" placeholder="How can we help?">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea rows="5" placeholder="Write your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        Send Message <i class='bx bx-paper-plane'></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="../script/contact.js"></script>
+</body>
+</html>
