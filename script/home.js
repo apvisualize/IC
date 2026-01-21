@@ -5,51 +5,146 @@ const mobileNav = document.getElementById('mobile-nav');
 menuIcon.onclick = () => { mobileNav.classList.add('active'); }
 closeIcon.onclick = () => { mobileNav.classList.remove('active'); }
 
-const itData = [
-    { tag: "Cyber Security", title: "Cloud Defense", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200" },
-    { tag: "Intelligence", title: "Neural Engine", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200" },
-    { tag: "Infrastructure", title: "Quantum Computing", img: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1200" },
-    { tag: "Connectivity", title: "Edge Networks", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200" },
-    { tag: "Big Data", title: "Predictive Ops", img: "https://images.unsplash.com/photo-1551288049-bbbda5366391?q=80&w=1200" }
+// Data events terakhir (4 events terbaru)
+let eventsData = [
+    { 
+        tag: "Workshop", 
+        title: "Cyber Defense Strategy 2024", 
+        img: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?q=80&w=1200",
+        date: "15 AUG",
+        time: "09:00 AM",
+        location: "Jakarta Hall",
+        link: "event.html"
+    },
+    { 
+        tag: "Webinar", 
+        title: "AI & Neural Networks Intro", 
+        img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200",
+        date: "22 SEP",
+        time: "14:00 PM",
+        location: "Zoom Live",
+        link: "event.html"
+    },
+    { 
+        tag: "Exhibition", 
+        title: "Technova Grand Expo", 
+        img: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=1200",
+        date: "05 OCT",
+        time: "10:00 AM",
+        location: "Convention Ctr",
+        link: "event.html"
+    },
+    { 
+        tag: "Bootcamp", 
+        title: "Fullstack Dev Intensive", 
+        img: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200",
+        date: "12 NOV",
+        time: "3 Days",
+        location: "Bandung Hub",
+        link: "event.html"
+    }
 ];
 
 const mainWrapper = document.getElementById('main-wrapper');
 const thumbWrapper = document.getElementById('thumb-wrapper');
 
-itData.forEach(data => {
+let mainSwiper, thumbSwiper;
+
+// Fungsi untuk render cards
+function renderCards() {
+    mainWrapper.innerHTML = '';
+    thumbWrapper.innerHTML = '';
+
+    // Main slider hanya menampilkan card terakhir (yang di belakang)
+    const lastEvent = eventsData[eventsData.length - 1];
     mainWrapper.innerHTML += `
-        <div class="swiper-slide" style="background-image: url('${data.img}')">
+        <div class="swiper-slide" style="background-image: url('${lastEvent.img}')">
             <div class="slide-overlay"></div>
             <div class="slide-content">
-                <span class="tag">${data.tag}</span>
-                <h1 class="title">${data.title}</h1>
-                <p class="desc">Membangun ekosistem teknologi masa depan yang skalabel dan aman.</p>
+                <span class="tag">${lastEvent.tag}</span>
+                <h1 class="title">${lastEvent.title}</h1>
+                <p class="desc">Join us for an exciting event. ${lastEvent.time} at ${lastEvent.location}</p>
                 <div class="cta-group">
-                    <a href="about.html" class="btn-login">Pelajari Detail</a>
-                    <i class='bx bx-bookmark' style="font-size: 1.8rem; cursor: pointer;"></i>
+                    <a href="${lastEvent.link}" class="btn-login">Register Now</a>
                 </div>
             </div>
         </div>`;
-    thumbWrapper.innerHTML += `
-        <div class="swiper-slide">
-            <img src="${data.img}" class="thumb-img">
-            <div class="thumb-info"><h4>${data.title}</h4></div>
-        </div>`;
-});
 
-const swiperThumbs = new Swiper(".thumb-slider", {
-    loop: true, 
-    watchSlidesProgress: true, 
-    navigation: { nextEl: ".next-btn", prevEl: ".prev-btn" },
-    breakpoints: { 
-        320: { slidesPerView: 1.5, spaceBetween: 15 }, 
-        768: { slidesPerView: 2, spaceBetween: 20 } 
+    // Thumbnail cards menampilkan semua cards dari depan ke belakang
+    eventsData.forEach((event, index) => {
+        thumbWrapper.innerHTML += `
+            <div class="swiper-slide thumb-card" data-index="${index}">
+                <img src="${event.img}" class="thumb-img">
+                <div class="thumb-info">
+                    <h4>${event.title}</h4>
+                    <small>${event.date}</small>
+                </div>
+            </div>`;
+    });
+
+    // Initialize atau update Swiper
+    if (!mainSwiper) {
+        // Initialize untuk pertama kali
+        thumbSwiper = new Swiper(".thumb-slider", {
+            loop: false,
+            watchSlidesProgress: false,
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            freeMode: true,
+            mousewheel: {
+                forceToAxis: true,
+                sensitivity: 1,
+                releaseOnEdges: true,
+            },
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true,
+                hide: false,
+            },
+            breakpoints: { 
+                320: { 
+                    slidesPerView: 'auto',
+                    spaceBetween: 15 
+                }, 
+                768: { 
+                    slidesPerView: 'auto',
+                    spaceBetween: 20 
+                } 
+            }
+        });
+
+        mainSwiper = new Swiper(".main-slider", { 
+            loop: false,
+            effect: "fade", 
+            speed: 800,
+            allowTouchMove: false
+        });
+    } else {
+        // Update swiper dengan data baru
+        mainSwiper.update();
+        thumbSwiper.update();
+        // Trigger fade animation untuk main slider
+        mainSwiper.slideTo(0, 800);
     }
-});
 
-new Swiper(".main-slider", { 
-    loop: true, 
-    effect: "fade", 
-    speed: 1000, 
-    thumbs: { swiper: swiperThumbs } 
-});
+    // Tambahkan event listener pada setiap thumbnail card
+    document.querySelectorAll('.thumb-card').forEach((card, index) => {
+        card.addEventListener('click', () => {
+            handleCardClick(index);
+        });
+    });
+}
+
+// Fungsi untuk handle klik card
+function handleCardClick(clickedIndex) {
+    // Pindahkan card yang diklik ke belakang
+    const clickedEvent = eventsData[clickedIndex];
+    eventsData.splice(clickedIndex, 1); // Hapus dari posisi sekarang
+    eventsData.push(clickedEvent); // Tambahkan ke belakang
+    
+    // Re-render cards (akan otomatis update main slider dengan card terakhir)
+    renderCards();
+}
+
+// Inisialisasi pertama kali
+renderCards();
